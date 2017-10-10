@@ -23,11 +23,11 @@ const { signer, TransactionEncoder } = require('sawtooth-sdk/client')
 const modals = require('../components/modals')
 const api = require('../services/api')
 
-const STORAGE_KEY = 'tnt.encryptedKey'
+const STORAGE_KEY = 'fishnet.encryptedKey'
 
 let txnEncoder = null
 const encoderSettings = {
-  familyName: 'track_and_trade',
+  familyName: 'supply_chain',
   familyVersion: '1.0',
   payloadEncoding: 'application/protobuf',
   inputs: ['1c1108'],

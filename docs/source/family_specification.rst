@@ -1,11 +1,11 @@
-************************************************
-Track and Trade Transaction Family Specification
-************************************************
+******************************************************
+Sawtooth Supply Chain Transaction Family Specification
+******************************************************
 
 Overview
 ========
 
-The Track and Trade (T&T) transaction family allows users to track
+The Sawtooth Supply Chain transaction family allows users to track
 goods as they move through a supply chain. Records for goods include a
 history of ownership and custodianship, as well as histories for a
 variety of properties such as temperature and location. These
@@ -16,19 +16,19 @@ types.
 State
 =====
 
-All T&T objects are serialized using Protocol Buffers before being
+All Supply Chain objects are serialized using Protocol Buffers before being
 stored in state. These objects include: Agents, Properties
 (accompanied by their auxiliary PropertyPage objects), Proposals,
 Records, and RecordTypes. As described in the Addressing_ section
 below, these objects are stored in separate sub-namespaces under the
-T&T namespace. To handle hash collisions, all objects are stored in
+Supply Chain namespace. To handle hash collisions, all objects are stored in
 lists within protobuf "Container" objects.
 
 
 Records
 -------
 
-Records represent the goods being tracked by Track and Trade. Almost
+Records represent the goods being tracked by Supply Chain. Almost
 every transaction references some Record.
 
 A Record contains a unique identifier, the name of a RecordType, and
@@ -392,7 +392,7 @@ then by ``timestamp`` (earliest to latest).
 Addressing
 ----------
 
-T&T objects are stored under the namespace obtained by taking the
+Supply Chain objects are stored under the namespace obtained by taking the
 first six characters of the SHA-512 hash of the string
 ``track_and_trade``:
 
@@ -404,7 +404,7 @@ first six characters of the SHA-512 hash of the string
    >>> get_hash('track_and_trade')[:6]
    '1c1108'
 
-After its namespace prefix, the next two characters of a T&T object's
+After its namespace prefix, the next two characters of a Supply Chain object's
 address are a string based on the object's type:
 
 - Agent: ``ae``
@@ -460,12 +460,12 @@ Transactions
 Transaction Payload
 -------------------
 
-All T&T transactions are wrapped in a tagged payload object to allow
+All Supply Chain transactions are wrapped in a tagged payload object to allow
 for the transaction to be dispatched to appropriate handling logic.
 
 .. code-block:: protobuf
 
-   message TTPayload {
+   message SCPayload {
        enum Action {
            CREATE_AGENT = 1;
            CREATE_RECORD = 2;

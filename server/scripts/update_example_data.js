@@ -40,14 +40,14 @@ const VARIANCE_FACTOR = 0.75
 let batcherPubkey = null
 
 const createPayload = message => {
-  return protos.TTPayload.encode(_.assign({
+  return protos.SCPayload.encode(_.assign({
     timestamp: Math.floor(Date.now() / 1000)
   }, message)).finish()
 }
 
 const createTxn = (privateKey, payload) => {
   return new TransactionEncoder(privateKey, {
-    familyName: 'track_and_trade',
+    familyName: 'supply_chain',
     familyVersion: '1.0',
     payloadEncoding: 'application/protobuf',
     inputs: ['1c1108'],
@@ -58,7 +58,7 @@ const createTxn = (privateKey, payload) => {
 
 const createUpdate = (privateKey, recordId, property) => {
   return createTxn(privateKey, createPayload({
-    action: protos.TTPayload.Action.UPDATE_PROPERTIES,
+    action: protos.SCPayload.Action.UPDATE_PROPERTIES,
     updateProperties: protos.UpdatePropertiesAction.create({
       recordId,
       properties: [protos.PropertyValue.create(property)]
